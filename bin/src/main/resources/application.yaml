@@ -1,0 +1,12 @@
+# Spring Configuration
+spring:
+  # Servlet Multipart Configuration
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
+      
+      
+# Root Directory Configuration
+rootDirectory: "/app/exavalu_mule_migration_enhancer" # Path to the root directory
+
