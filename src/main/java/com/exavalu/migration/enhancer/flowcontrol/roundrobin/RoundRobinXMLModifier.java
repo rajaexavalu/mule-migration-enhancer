@@ -54,7 +54,8 @@ public class RoundRobinXMLModifier {
 					}
 				}
 
-				// Wrap each existing child node with <route> element only if not already wrapped
+				// Wrap each existing child node with <route> element only if not already
+				// wrapped
 				if (!alreadyWrapped) {
 					Element newRoundRobinElement = document.createElement("round-robin");
 					newRoundRobinElement.setAttribute("doc:name", "Round Robin");
@@ -87,11 +88,9 @@ public class RoundRobinXMLModifier {
 						log.info("Modified XML written to the file successfully.");
 					}
 				} else {
-
 					log.warn("Child elements are already wrapped with <route>.");
 				}
 			}
-
 		} catch (Exception e) {
 			log.error("Error modifying XML:", e.toString());
 		}

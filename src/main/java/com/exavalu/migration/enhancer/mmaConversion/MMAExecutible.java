@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exavalu.migration.enhancer.uploadsourcefiles.ExtractZipSourceFiles;
 
-public class MmaExecutible {
-	private static final Logger log = LoggerFactory.getLogger(MmaExecutible.class);
+public class MMAExecutible {
+	private static final Logger log = LoggerFactory.getLogger(MMAExecutible.class);
 
 	public static String migrationHelper(String mule3ProjectLocation, String migratedProjectLocation) {
 		try {
@@ -29,7 +29,6 @@ public class MmaExecutible {
 			// Obtain the absolute file path
 			File file = resource.getFile();
 			String absolutePath = file.getAbsolutePath();
-
 
 			// Command to execute Mule Migration Assistant
 			String[] command = { "java", "-jar", "mule-migration-assistant-runner-1.4.1-SNAPSHOT.jar", "-muleVersion",

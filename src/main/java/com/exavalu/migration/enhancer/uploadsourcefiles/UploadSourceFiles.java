@@ -27,7 +27,7 @@ public class UploadSourceFiles {
 //		String uploadDir = "D:\\App\\mule";
 
 		// Extract the uploaded ZIP file using MuleZipExtractorLogic
-		if (ExtractZipSourceFiles.extractZip(file,rootDirectory)) {
+		if (ExtractZipSourceFiles.extractZip(file, rootDirectory)) {
 			// Return OK response if extraction is successful
 			return new ResponseEntity<>("File uploaded and extracted successfully!", HttpStatus.OK);
 		} else {

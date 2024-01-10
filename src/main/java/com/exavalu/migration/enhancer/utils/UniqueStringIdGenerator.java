@@ -1,4 +1,4 @@
-package com.exavalu.migration.enhancer.generateuniquestringid;
+package com.exavalu.migration.enhancer.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +15,5 @@ public class UniqueStringIdGenerator {
 		String uniqueString = now.format(formatter);
 		return uniqueString;
 	}
-
 
 }

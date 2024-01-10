@@ -12,11 +12,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
 public class ModifyValidator {
 	public static boolean modifyXml(String xmlPath) {
-		boolean response=false;
+		boolean response = false;
 		try {
 			// Specify the path to your XML file
 			String filePath = xmlPath;
@@ -77,8 +75,7 @@ public class ModifyValidator {
 			XMLTransformer.writeXmlFile(doc, filePath);
 
 			System.out.println("XML file has been modified successfully.");
-			response=true;
-			
+			response = true;
 
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();

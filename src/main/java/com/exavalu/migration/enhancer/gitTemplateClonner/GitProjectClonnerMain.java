@@ -36,7 +36,8 @@ public class GitProjectClonnerMain {
 		String response = "";
 		if (!destinationFolder.exists()) {
 			destinationFolder.mkdirs();
-			boolean isClonningSuccessful = GitCloneCommandExecutor.cloneRepository(gitCommand, repositoryUrl, destination);
+			boolean isClonningSuccessful = GitCloneCommandExecutor.cloneRepository(gitCommand, repositoryUrl,
+					destination);
 			if (isClonningSuccessful) {
 				response = "Repository cloned successfully!";
 				String pomXMLPath = destination + "\\" + "pom.xml";
@@ -58,7 +59,5 @@ public class GitProjectClonnerMain {
 			log.error(response);
 			return response;
 		}
-
 	}
-
 }
