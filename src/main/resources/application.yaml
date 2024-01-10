@@ -8,5 +8,5 @@ spring:
       
       
 # Root Directory Configuration
-rootDirectory: "/app/exavalu_mule_migration_enhancer" # Path to the root directory
-
+rootDirectory: "/app/exavalu_mule_migration_enhancer/" # Path to the root directory
+gitRepositoryUrl: "https://github.com/exavalu-solutions/mule-general-template.git" # Path to the mule general template 
