@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CloneRepository {
-	private static final Logger log = LoggerFactory.getLogger(CloneRepository.class);
+public class GitCloneCommandExecutor {
+	private static final Logger log = LoggerFactory.getLogger(GitCloneCommandExecutor.class);
 	public static boolean cloneRepository(String gitCommand, String repositoryUrl, String destination) {
 		ProcessBuilder processBuilder = new ProcessBuilder(gitCommand, "clone", repositoryUrl, destination);
 		boolean result = false;

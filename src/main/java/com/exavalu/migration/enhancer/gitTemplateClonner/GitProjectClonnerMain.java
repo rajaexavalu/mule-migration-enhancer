@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GitProjectClonner {
-	private static final Logger log = LoggerFactory.getLogger(GitProjectClonner.class);
+public class GitProjectClonnerMain {
+	private static final Logger log = LoggerFactory.getLogger(GitProjectClonnerMain.class);
 
 	@Value("${rootDirectory}")
 	public String rootDirectory;
@@ -36,7 +36,7 @@ public class GitProjectClonner {
 		String response = "";
 		if (!destinationFolder.exists()) {
 			destinationFolder.mkdirs();
-			boolean isClonningSuccessful = CloneRepository.cloneRepository(gitCommand, repositoryUrl, destination);
+			boolean isClonningSuccessful = GitCloneCommandExecutor.cloneRepository(gitCommand, repositoryUrl, destination);
 			if (isClonningSuccessful) {
 				response = "Repository cloned successfully!";
 				String pomXMLPath = destination + "\\" + "pom.xml";
