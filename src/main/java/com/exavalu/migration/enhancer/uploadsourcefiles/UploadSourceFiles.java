@@ -12,21 +12,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadSourceFiles {
 
 	@Value("${rootDirectory}")
-	public String rootDirecttory;
+	private String rootDirectory;
 
 	// Endpoint for uploading and extracting a Mule3 ZIP file
 	@PostMapping("/upload-mule3-zip")
-	public static ResponseEntity<String> cloneGitProject(@RequestBody MultipartFile file) {
+	public ResponseEntity<String> cloneGitProject(@RequestBody MultipartFile file) {
+
 		if (file.isEmpty()) {
 			// Return a BAD_REQUEST response if no file is provided
 			return new ResponseEntity<>("Please select a file!", HttpStatus.BAD_REQUEST);
 		}
 
 		// Directory to store extracted files
-		String uploadDir = "D:\\App\\mule";
+//		String uploadDir = "D:\\App\\mule";
 
 		// Extract the uploaded ZIP file using MuleZipExtractorLogic
-		if (ExtractZipSourceFiles.extractZip(file, uploadDir)) {
+		if (ExtractZipSourceFiles.extractZip(file,rootDirectory)) {
 			// Return OK response if extraction is successful
 			return new ResponseEntity<>("File uploaded and extracted successfully!", HttpStatus.OK);
 		} else {
