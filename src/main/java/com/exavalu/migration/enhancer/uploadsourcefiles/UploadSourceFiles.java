@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import com.exavalu.migration.enhancer.inboundoutboundproperties.RemoveInboundOutboundProperties;
+
 
 @RestController
 public class UploadSourceFiles {
@@ -29,6 +31,7 @@ public class UploadSourceFiles {
 		// Extract the uploaded ZIP file using MuleZipExtractorLogic
 		if (ExtractZipSourceFiles.extractZip(file, rootDirectory)) {
 			// Return OK response if extraction is successful
+			RemoveInboundOutboundProperties.inboundOutboundRemover(rootDirectory);
 			return new ResponseEntity<>("File uploaded and extracted successfully!", HttpStatus.OK);
 		} else {
 			// Return INTERNAL_SERVER_ERROR if extraction fails

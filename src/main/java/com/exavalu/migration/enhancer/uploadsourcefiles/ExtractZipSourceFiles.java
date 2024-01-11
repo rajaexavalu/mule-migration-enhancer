@@ -25,19 +25,20 @@ public class ExtractZipSourceFiles {
 
 		try (ZipInputStream zipInputStream = new ZipInputStream(file.getInputStream())) {
 			// Create the destination directory with unique name
-			String formattedDateTime = UniqueStringIdGenerator.uniqueStringGenerator("yyyyMMddHHmmss");
+			String formattedDateTime = UniqueStringIdGenerator.uniqueStringGenerator("yyyyMMdd");
 			// Created the base path
 			String path = destDirectory + File.separator + file.getOriginalFilename().replace(".zip", "_")
 					+ formattedDateTime;
 
 			File destDir = new File(path);
-			if (!destDir.exists()) {
-				if (!destDir.mkdirs()) {
-					formattedDateTime = UniqueStringIdGenerator.uniqueStringGenerator("yyyyMMddHHmmssSSSS");
-					path = destDirectory + File.separator + file.getName() + formattedDateTime;
-					destDir = new File(path);
-				}
+			// Check if a project directory already exists
+			if (destDir.exists()) {
+				formattedDateTime = UniqueStringIdGenerator.uniqueStringGenerator("yyyyMMddHHmmssSSSS");
+				path = destDirectory + File.separator + file.getOriginalFilename().replace(".zip", "_")
+						+ formattedDateTime;
+				destDir = new File(path);
 			}
+			destDir.mkdirs();
 
 			// Process each entry in the ZIP file
 			ZipEntry zipEntry;
@@ -73,7 +74,7 @@ public class ExtractZipSourceFiles {
 			Path returnPath = Paths.get(path);
 			File[] files = returnPath.toFile().listFiles();
 
-			// Check each file/directory for the "roundrobin" folder
+			// Check each file/directory
 			if (files != null) {
 				for (File contentFile : files) {
 					if (contentFile.isDirectory()) {
