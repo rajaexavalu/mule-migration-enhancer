@@ -63,6 +63,36 @@ public class ModifyValidator {
 
 							System.out.println("Modified expression from: " + expressionValue + " to: " + newValue);
 						}
+						if (expressionValue.contains("mel:validator.isTime")) {
+							String newValue = expressionValue.replace("mel:validator.isTime", "Validation::isTime");
+							expressionNode.setNodeValue(newValue);
+
+							System.out.println("Modified expression from: " + expressionValue + " to: " + newValue);
+						}
+						if (expressionValue.contains("mel:validator.notEmpty")) {
+							String newValue = expressionValue.replace("mel:validator.notEmpty", "!isEmpty");
+							expressionNode.setNodeValue(newValue);
+
+							System.out.println("Modified expression from: " + expressionValue + " to: " + newValue);
+						}
+						if (expressionValue.contains("validator.isEmpty")) {
+							String newValue = expressionValue.replace("validator.isEmpty", "isEmpty");
+							expressionNode.setNodeValue(newValue);
+
+							System.out.println("Modified expression from: " + expressionValue + " to: " + newValue);
+						}
+						if (expressionValue.contains("mel:validator.isNull")) {
+							String newValue = expressionValue.replace("mel:validator.isNull", "isEmpty");
+							expressionNode.setNodeValue(newValue);
+
+							System.out.println("Modified expression from: " + expressionValue + " to: " + newValue);
+						}
+						if (expressionValue.contains("mel:validator.isNotNull")) {
+							String newValue = expressionValue.replace("mel:validator.isNotNull", "!isEmpty");
+							expressionNode.setNodeValue(newValue);
+
+							System.out.println("Modified expression from: " + expressionValue + " to: " + newValue);
+						}
 					}
 				}
 			}
