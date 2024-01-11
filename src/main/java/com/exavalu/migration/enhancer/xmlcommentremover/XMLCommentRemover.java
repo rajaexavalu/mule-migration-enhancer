@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class XMLCommentRemover {
+	private static final Logger log = LoggerFactory.getLogger(XMLCommentRemover.class);
 	public static void removeComments(String muleProjectPathUptoSrcMainMule) {
 		// give the path of xml files location eg: ....src/main/mule where all xml files
 		// are present
@@ -34,8 +38,6 @@ public class XMLCommentRemover {
 		content = content.replaceAll("(?s)<!--(.*?)-->", "");
 
 		Files.write(inputFile, content.getBytes());
-
-		System.out.println("Finished processing: " + inputFile);
+		log.info("Finished processing: " + inputFile);
 	}
-
 }
