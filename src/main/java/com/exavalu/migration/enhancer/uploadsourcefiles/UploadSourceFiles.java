@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.exavalu.migration.enhancer.inboundoutboundproperties.RemoveInboundOutboundProperties;
+import com.exavalu.migration.enhancer.objectstoremodify.ConfigureObjectStore;
 
 
 @RestController
@@ -32,6 +33,7 @@ public class UploadSourceFiles {
 		if (ExtractZipSourceFiles.extractZip(file, rootDirectory)) {
 			// Return OK response if extraction is successful
 			RemoveInboundOutboundProperties.inboundOutboundRemover(rootDirectory);
+			ConfigureObjectStore.configObjectStore(rootDirectory);
 			return new ResponseEntity<>("File uploaded and extracted successfully!", HttpStatus.OK);
 		} else {
 			// Return INTERNAL_SERVER_ERROR if extraction fails
