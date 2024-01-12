@@ -7,18 +7,20 @@ import java.nio.file.attribute.BasicFileAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class XMLCommentRemover {
 	private static final Logger log = LoggerFactory.getLogger(XMLCommentRemover.class);
+
 	public static void removeComments(String muleProjectPathUptoSrcMainMule) {
 		// give the path of xml files location eg: ....src/main/mule where all xml files
 		// are present
 		Path inputFolder = Paths.get(muleProjectPathUptoSrcMainMule);
 
 		try {
-			//traverse over each xml file under given folder path or directory path
+			// traverse over each xml file under given folder path or directory path
 			Files.walkFileTree(inputFolder, new SimpleFileVisitor<Path>() {
 				@Override
-				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
 					if (file.toString().toLowerCase().endsWith(".xml")) {
 						removeXMLComments(file);
 					}
@@ -26,18 +28,23 @@ public class XMLCommentRemover {
 				}
 			});
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 		}
 	}
 
-	private static void removeXMLComments(Path inputFile) throws IOException {
-		System.out.println("Processing file: " + inputFile);
+	private static void removeXMLComments(Path inputFile) {
 
-		String content = Files.readString(inputFile);
-		// this expression remove multi line xml comments
-		content = content.replaceAll("(?s)<!--(.*?)-->", "");
+		try {
+			log.info("Processing file: " + inputFile);
 
-		Files.write(inputFile, content.getBytes());
-		log.info("Finished processing: " + inputFile);
+			String content = Files.readString(inputFile);
+			// this expression remove multi line xml comments
+			content = content.replaceAll("(?s)<!--(.*?)-->", "");
+
+			Files.write(inputFile, content.getBytes());
+			log.info("Finished processing: " + inputFile);
+		} catch (IOException e) {
+			log.error(e.toString());
+		}
 	}
 }
