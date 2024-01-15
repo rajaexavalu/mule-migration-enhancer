@@ -108,7 +108,7 @@ public class ConfigureManagedStore {
 
 				}
 				// Save the modified document back to the file
-				saveModifiedDocument(document, filePath);
+				saveModifiedDocument(document, xmlPath);
 			} else {
 				log.warn("No <objectstore:dual-store> elements found in the XML.");
 			}
