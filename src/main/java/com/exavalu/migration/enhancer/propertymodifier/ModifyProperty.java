@@ -20,13 +20,11 @@ public class ModifyProperty {
 	public static boolean modifyProperty(String xmlPath) {
 		boolean response = false;
 		try {
-			// Specify the path to your XML file
-			String filePath = xmlPath;
 
 			// Parse the XML file
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(filePath);
+			Document doc = docBuilder.parse(xmlPath);
 
 			// Get the root element
 			Element rootElement = doc.getDocumentElement();
@@ -74,7 +72,7 @@ public class ModifyProperty {
 
 			}
 			doc.normalize();
-			XMLTransformer.writeXmlFile(doc, filePath);
+			XMLTransformer.writeXmlFile(doc, xmlPath);
 
 			log.info("XML file has been modified successfully.");
 			response = true;

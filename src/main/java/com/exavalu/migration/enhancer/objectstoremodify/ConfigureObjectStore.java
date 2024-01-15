@@ -27,7 +27,7 @@ public class ConfigureObjectStore {
             // Parse the XML file
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse("E:\\OfficeWork\\customqueue.xml");
+            Document doc = builder.parse(mule4ProjectLocation);
 
             // Find all nodes with the name "compatibility:attributes-to-inbound-properties"
             NodeList osList = doc.getElementsByTagName("os:object-store");
@@ -48,7 +48,7 @@ public class ConfigureObjectStore {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult("E:\\OfficeWork\\customqueue.xml");
+            StreamResult result = new StreamResult(mule4ProjectLocation);
             transformer.transform(source, result);
 
             System.out.println("XML file updated successfully!");

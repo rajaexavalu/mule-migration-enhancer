@@ -21,14 +21,12 @@ public class ConfigureManagedStore {
 
 	private static final Logger log = LoggerFactory.getLogger(ConfigureManagedStore.class);
 
-	public static void managedstoremodifier(String xmlpath) {
-//		String filePath = "D:\\MULESOFT\\MuleMigration\\DEMOPATH\\storefile.xml"; // Replace with the actual file path
+	public static void managedstoremodifier(String xmlPath) {
 
-		String filePath = xmlpath;
 
 		try {
 			// Read XML content from the file
-			File inputFile = new File(filePath);
+			File inputFile = new File(xmlPath);
 			FileInputStream inputStream = new FileInputStream(inputFile);
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -57,7 +55,7 @@ public class ConfigureManagedStore {
 				}
 
 				// Save the modified document back to the file
-				saveModifiedDocument(document, filePath);
+				saveModifiedDocument(document, xmlPath);
 			} else {
 				log.warn("No <objectstore:all-keys> elements found in the XML.");
 			}

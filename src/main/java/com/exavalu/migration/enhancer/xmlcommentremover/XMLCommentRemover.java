@@ -1,5 +1,6 @@
 package com.exavalu.migration.enhancer.xmlcommentremover;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -22,7 +23,7 @@ public class XMLCommentRemover {
 				@Override
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
 					if (file.toString().toLowerCase().endsWith(".xml")) {
-						removeXMLComments(file);
+//						removeXMLComments(file);
 					}
 					return FileVisitResult.CONTINUE;
 				}
@@ -32,16 +33,18 @@ public class XMLCommentRemover {
 		}
 	}
 
-	private static void removeXMLComments(Path inputFile) {
+	public static void removeXMLComments(String inputFile) {
 
 		try {
-			log.info("Processing file: " + inputFile);
+			File xmlFile = new File(inputFile);
+			Path xmlFilePath =  xmlFile.toPath();
+			log.info("Processing file: " + xmlFilePath);
 
-			String content = Files.readString(inputFile);
+			String content = Files.readString(xmlFilePath);
 			// this expression remove multi line xml comments
-			content = content.replaceAll("(?s)<!--(.*?)-->", "");
+			content = content.replaceAll("<!--(.*?)-->", "");
 
-			Files.write(inputFile, content.getBytes());
+			Files.write(xmlFilePath, content.getBytes());
 			log.info("Finished processing: " + inputFile);
 		} catch (IOException e) {
 			log.error(e.toString());

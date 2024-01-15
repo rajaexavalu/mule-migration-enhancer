@@ -1,5 +1,6 @@
 package com.exavalu.migration.enhancer.inboundoutboundproperties;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,52 +24,53 @@ public class RemoveInboundOutboundProperties {
 
 	public static void inboundOutboundRemover(String mule4ProjectLocation) {
 		try {
-            // Parse the XML file
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse("E:\\OfficeWork\\customqueue.xml");
+			// Parse the XML file
+			File xmlFile = new File(mule4ProjectLocation);
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(xmlFile);
 
-            // Find all nodes with the name "compatibility:attributes-to-inbound-properties"
-            NodeList inboundList = doc.getElementsByTagName("compatibility:attributes-to-inbound-properties");
-            
-            // Find all nodes with the name "compatibility:outbound-properties-to-var"
-            NodeList outboundList = doc.getElementsByTagName("compatibility:outbound-properties-to-var");
+			// Find all nodes with the name "compatibility:attributes-to-inbound-properties"
+			NodeList inboundList = doc.getElementsByTagName("compatibility:attributes-to-inbound-properties");
 
+			// Find all nodes with the name "compatibility:outbound-properties-to-var"
+			NodeList outboundList = doc.getElementsByTagName("compatibility:outbound-properties-to-var");
 
-            // Iterate through the found nodes in reverse order
-            for (int i = inboundList.getLength() - 1; i >= 0; i--) {
-                Node node = inboundList.item(i);
+			// Iterate through the found nodes in reverse order
+			for (int i = inboundList.getLength() - 1; i >= 0; i--) {
+				Node node = inboundList.item(i);
 
-                // Get the parent node of "compatibility:attributes-to-inbound-properties"
-                Node flow = node.getParentNode();
-                System.out.println(flow.getNodeName());
+				// Get the parent node of "compatibility:attributes-to-inbound-properties"
+				Node flow = node.getParentNode();
+				System.out.println(flow.getNodeName());
 
-                // Remove the "compatibility:attributes-to-inbound-properties" node from its parent
-                flow.removeChild(node);
-            }
-            
-            // Iterate through the found nodes in reverse order
-            for (int i = outboundList.getLength() - 1; i >= 0; i--) {
-                Node node = outboundList.item(i);
+				// Remove the "compatibility:attributes-to-inbound-properties" node from its
+				// parent
+				flow.removeChild(node);
+			}
 
-                // Get the parent node of "compatibility:outbound-properties-to-var"
-                Node flow = node.getParentNode();
-                System.out.println(flow.getNodeName());
+			// Iterate through the found nodes in reverse order
+			for (int i = outboundList.getLength() - 1; i >= 0; i--) {
+				Node node = outboundList.item(i);
 
-                // Remove the "compatibility:outbound-properties-to-var" node from its parent
-                flow.removeChild(node);
-            }
+				// Get the parent node of "compatibility:outbound-properties-to-var"
+				Node flow = node.getParentNode();
+				System.out.println(flow.getNodeName());
 
-            // Save the changes to the XML file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult("E:\\OfficeWork\\customqueue.xml");
-            transformer.transform(source, result);
+				// Remove the "compatibility:outbound-properties-to-var" node from its parent
+				flow.removeChild(node);
+			}
 
-            System.out.println("XML file updated successfully!");
+			// Save the changes to the XML file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(xmlFile);
+			transformer.transform(source, result);
 
-        } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
+			System.out.println("XML file updated successfully!");
+
+		} catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
 			e.printStackTrace();
 			log.error("Error casused during removal of inboudoutbound propertoes :" + e.toString());
 		}

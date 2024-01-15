@@ -20,7 +20,7 @@ import com.exavalu.migration.enhancer.utils.UniqueStringIdGenerator;
 public class ExtractZipSourceFiles {
 	private static final Logger log = LoggerFactory.getLogger(ExtractZipSourceFiles.class);
 
-	public static boolean extractZip(MultipartFile file, String destDirectory) {
+	public static String extractZip(MultipartFile file, String destDirectory) {
 		byte[] buffer = new byte[1024];
 
 		try (ZipInputStream zipInputStream = new ZipInputStream(file.getInputStream())) {
@@ -75,6 +75,7 @@ public class ExtractZipSourceFiles {
 			File[] files = returnPath.toFile().listFiles();
 
 			// Check each file/directory
+			String modifyFilePath = "";
 			if (files != null) {
 				for (File contentFile : files) {
 					if (contentFile.isDirectory()) {
@@ -82,15 +83,17 @@ public class ExtractZipSourceFiles {
 						File oldfile = new File(contentFile.getPath());
 						File modifyFile = new File(contentFile.getPath() + "_mule3");
 						oldfile.renameTo(modifyFile);
+						modifyFilePath = modifyFile.toString();
 					}
 				}
+
 			}
-			return true;
+			return modifyFilePath;
 
 		} catch (IOException ioException) {
 			// Log and return false in case of an exception
 			log.error("Error during ZIP File Extraction: " + ioException.toString());
-			return false;
+			return "Error during ZIP File Extraction:";
 		}
 	}
 }

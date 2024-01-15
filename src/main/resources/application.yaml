@@ -10,3 +10,17 @@ spring:
 # Root Directory Configuration
 rootDirectory: "/app/exavalu_mule_migration_enhancer/" # Path to the root directory
 gitRepositoryUrl: "https://github.com/exavalu-solutions/mule-general-template.git" # Path to the mule general template 
+
+scopes:
+  mule3ApikitExceptionToErrorHandler: true
+  idempotentXMLModifier: true
+  roundrobinXMlModifier: true
+  inboundOutboundProperties: true
+  objectStoreModify:
+    configureManagedStore: true
+    configureObjectStore: true
+  propertyModifier: true
+  setSessionVariableToSetVariable: true
+  validationXMLModifier: true
+  vmqueue: true
+  xmlCommentRemover: true
