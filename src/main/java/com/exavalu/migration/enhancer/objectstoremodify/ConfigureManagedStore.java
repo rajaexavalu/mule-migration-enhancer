@@ -41,7 +41,6 @@ public class ConfigureManagedStore {
 					Element parentElement = (Element) allKeysNode.getParentNode();
 
 					String objectStoreName = allKeysNode.getAttribute("config-ref");
-					System.out.println(objectStoreName);
 
 					// Create a new <os:retrieve-all-keys> element
 					Element retrieveAllKeysElement = document.createElement("os:retrieve-all-keys");
@@ -58,6 +57,60 @@ public class ConfigureManagedStore {
 				saveModifiedDocument(document, xmlPath);
 			} else {
 				log.warn("No <objectstore:all-keys> elements found in the XML.");
+			}
+
+			// Code for modifying objectstore:dual-store
+
+			NodeList dualStoreList = document.getElementsByTagName("objectstore:dual-store");
+			if (dualStoreList.getLength() > 0) {
+				for (int i = 0; i < dualStoreList.getLength(); i++) {
+					Element dualStoreNode = (Element) dualStoreList.item(i);
+					Element parentElement = (Element) dualStoreNode.getParentNode();
+
+					String objectStoreName = dualStoreNode.getAttribute("config-ref");
+					String key = dualStoreNode.getAttribute("key");
+					String value = dualStoreNode.getAttribute("value-ref");
+
+					// Create the first <os:store> element for dual-store
+					Element osStoreElement1 = document.createElement("os:store");
+					// retrieveAllKeysElement.setAttribute("xmlns:objectstore",
+					// "http://www.mulesoft.org/schema/mule/objectstore");
+					osStoreElement1.setAttribute("objectStore", objectStoreName);
+					osStoreElement1.setAttribute("doc:name", "");
+					osStoreElement1.setAttribute("failIfPresent", "true");
+					osStoreElement1.setAttribute("key", key);
+
+					Element osValueElement = document.createElement("os:value");
+					osValueElement.setTextContent(value);
+
+					osStoreElement1.appendChild(osValueElement);
+
+					// Insert the first <os:store> element after the dual-store element
+					parentElement.insertBefore(osStoreElement1, dualStoreNode.getNextSibling());
+
+					// Create the second <os:store> element for dual-store
+					Element osStoreElement2 = document.createElement("os:store");
+					osStoreElement2.setAttribute("objectStore", objectStoreName);
+					osStoreElement2.setAttribute("doc:name", "");
+					osStoreElement2.setAttribute("failIfPresent", "true");
+					osStoreElement2.setAttribute("key", value);
+
+					Element osValueElement2 = document.createElement("os:value");
+					osValueElement2.setTextContent(key);
+
+					osStoreElement2.appendChild(osValueElement2);
+
+					// Insert the second <os:store> element after the first <os:store> element
+					parentElement.insertBefore(osStoreElement2, osStoreElement1.getNextSibling());
+
+					// Remove the <objectstore:dual-store> element
+					parentElement.removeChild(dualStoreNode);
+
+				}
+				// Save the modified document back to the file
+				saveModifiedDocument(document, filePath);
+			} else {
+				log.warn("No <objectstore:dual-store> elements found in the XML.");
 			}
 
 		} catch (Exception e) {
