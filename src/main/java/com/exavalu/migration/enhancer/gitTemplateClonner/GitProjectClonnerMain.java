@@ -17,11 +17,13 @@ public class GitProjectClonnerMain {
 	public String rootDirectory;
 	@Value("${gitRepositoryUrl}")
 	public String gitRepositoryUrl;
+	@Value("${userName}")
+	public String userName;
+	@Value("${token}")
+	public String token;
 
 	@PostMapping("/clone-mule-template")
 	public String cloneMethodHandler(@RequestHeader("targetAPIName") String targetAPIName) {
-
-		String gitCommand = "git"; // Git executable
 
 		// Replace with your repository URL
 		String repositoryUrl = gitRepositoryUrl;
@@ -29,6 +31,7 @@ public class GitProjectClonnerMain {
 
 		// Replace with your desired destination path
 		String destination = rootDirectory + targetAPIName.toLowerCase();
+
 		log.info("Destination: " + destination);
 
 		// Check if the destination folder exists; if not, create it
@@ -36,8 +39,9 @@ public class GitProjectClonnerMain {
 		String response = "";
 		if (!destinationFolder.exists()) {
 			destinationFolder.mkdirs();
-			boolean isClonningSuccessful = GitCloneCommandExecutor.cloneRepository(gitCommand, repositoryUrl,
-					destination);
+
+			boolean isClonningSuccessful = GitCloneCommandExecutor.cloneRepository(repositoryUrl, destination, userName,
+					token);
 			if (isClonningSuccessful) {
 				response = "Repository cloned successfully!";
 				String pomXMLPath = destination + "\\" + "pom.xml";

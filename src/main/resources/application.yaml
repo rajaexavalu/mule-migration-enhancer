@@ -6,7 +6,10 @@ spring:
       max-request-size: 50MB
       max-file-size: 50MB
       
-      
+#gitHub credential to clone the template to local system
+userName: "" # provide your userName
+token: "" #provide your generated gitHub token
+
 # Root Directory Configuration
 rootDirectory: "/app/exavalu_mule_migration_enhancer/" # Path to the root directory
 gitRepositoryUrl: "https://github.com/exavalu-solutions/mule-general-template.git" # Path to the mule general template 

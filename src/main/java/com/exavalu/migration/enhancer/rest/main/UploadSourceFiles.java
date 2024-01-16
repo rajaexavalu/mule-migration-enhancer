@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.exavalu.migration.enhancer.components.idempotent.IdempotentXMLModifier;
 import com.exavalu.migration.enhancer.flowcontrol.roundrobin.RoundRobinXMLModifier;
+import com.exavalu.migration.enhancer.gitTemplateClonner.GitProjectClonnerMain;
 import com.exavalu.migration.enhancer.global.declaration.AppGlobalDeclaration;
 import com.exavalu.migration.enhancer.inboundoutboundproperties.RemoveInboundOutboundProperties;
 import com.exavalu.migration.enhancer.mmaConversion.MMAExecutible;
@@ -97,7 +98,8 @@ public class UploadSourceFiles {
 		// call mma conversion class
 		String mule3Projectpath = ExtractZipSourceFiles.extractZip(file, rootDirectory);
 		String mule4MigratedPath = mule3Projectpath.replace("_mule3", "_mule4");
-		System.out.println("mule3Projectpath: " + mule3Projectpath);
+		
+		log.info("mule3Projectpath: " + mule3Projectpath);
 		String response = MMAExecutible.migrationHelper(mule3Projectpath, mule4MigratedPath);
 
 		try {
