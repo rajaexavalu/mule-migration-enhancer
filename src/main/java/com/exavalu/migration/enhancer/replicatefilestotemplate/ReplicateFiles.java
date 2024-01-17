@@ -33,16 +33,18 @@ public class ReplicateFiles {
 		replicateFilesFromMule4ToTemplateMain(sourceDirectory, destination, userInputFileName);
 	}
 
-	public static void replicateFilesFromMule4ToTemplateMain(String sourceDirectory, String destinationDirectory,
+	public static boolean replicateFilesFromMule4ToTemplateMain(String sourceDirectory, String destinationDirectory,
 			String userInputFileName) {
-
+		
 		HashMap<String, String> newFileName = new HashMap<>();
 		try {
 			newFileName = extractValuesFromHeader(userInputFileName);
 			createDestinationDirectories(sourceDirectory, destinationDirectory);
 			replicateFilesToTemplateProject(sourceDirectory, destinationDirectory, newFileName);
+			return true;
 		} catch (Exception e) {
 			log.error(e.toString());
+			return false;
 		}
 	}
 
